@@ -1,0 +1,5 @@
+{
+  "name": "Audio Marker for Video Assets",
+  "description": "An application for documentary content creators to import audio, mark timelines with different asset categories (like images, videos), and manage their asset collections efficiently.",
+  "requestFramePermissions": []
+}
