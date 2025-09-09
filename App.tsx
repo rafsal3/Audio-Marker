@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Project, CustomAssetType } from './types';
 import { DUMMY_PROJECTS, DEFAULT_ASSET_TYPES } from './constants';
 import ProjectListPage from './components/ProjectListPage';
@@ -10,10 +10,44 @@ import { DialogProvider } from './contexts/DialogProvider';
 type View = 'list' | 'editor' | 'settings';
 
 const App: React.FC = () => {
-  const [projects, setProjects] = useState<Project[]>(DUMMY_PROJECTS);
+  const [projects, setProjects] = useState<Project[]>(() => {
+    try {
+      const savedProjects = localStorage.getItem('projects');
+      if (savedProjects) {
+        return JSON.parse(savedProjects);
+      }
+    } catch (e) {
+      console.error("Failed to parse projects from localStorage", e);
+    }
+    return DUMMY_PROJECTS;
+  });
+  
+  const [assetTypes, setAssetTypes] = useState<CustomAssetType[]>(() => {
+    try {
+      const savedAssetTypes = localStorage.getItem('assetTypes');
+      if (savedAssetTypes) {
+        return JSON.parse(savedAssetTypes);
+      }
+    } catch (e) {
+      console.error("Failed to parse asset types from localStorage", e);
+    }
+    return DEFAULT_ASSET_TYPES;
+  });
+
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const [assetTypes, setAssetTypes] = useState<CustomAssetType[]>(DEFAULT_ASSET_TYPES);
   const [view, setView] = useState<View>('list');
+
+  useEffect(() => {
+    const projectsToSave = projects.map(p => {
+      const { audioUrl, ...projectData } = p; // Strip temporary blob URL before saving
+      return projectData;
+    });
+    localStorage.setItem('projects', JSON.stringify(projectsToSave));
+  }, [projects]);
+
+  useEffect(() => {
+    localStorage.setItem('assetTypes', JSON.stringify(assetTypes));
+  }, [assetTypes]);
 
   const handleSelectProject = (projectId: string) => {
     setSelectedProjectId(projectId);

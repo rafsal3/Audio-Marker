@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useCallback } from 'react';
 import { Project, Marker, AssetStatus, CustomAssetType } from '../types';
 import { BackIcon, EditIcon, ExportIcon, AudioWaveIcon, ImportIcon } from './icons';
@@ -169,6 +170,8 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
     reader.readAsText(file);
     event.target.value = ''; // Reset file input
   };
+  
+  const needsAudioRelink = project.audioFileName && project.audioFileName !== 'No audio imported' && !project.audioUrl;
 
   return (
     <div className="flex flex-col h-screen">
@@ -216,12 +219,18 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
       <main className="flex-grow p-4 lg:p-8 flex flex-col items-center justify-center">
         {!project.audioUrl ? (
           <div className="w-full max-w-2xl">
+            {needsAudioRelink && (
+              <div className="mb-4 p-4 text-center bg-yellow-100 text-yellow-800 border border-yellow-200 rounded-lg">
+                <p className="font-semibold">Your audio file needs to be re-linked.</p>
+                <p className="text-sm">To continue, please select <strong>{project.audioFileName}</strong>.</p>
+              </div>
+            )}
             <button
               onClick={handleAudioImportClick}
               className="w-full flex items-center justify-center gap-3 py-6 px-12 bg-gray-100/80 border-2 border-gray-200 border-dashed rounded-2xl text-gray-600 hover:bg-gray-200/60 hover:border-gray-300 transition-all duration-300"
             >
               <AudioWaveIcon className="w-6 h-6" />
-              <span className="text-lg font-semibold">Import audio</span>
+              <span className="text-lg font-semibold">{needsAudioRelink ? 'Select Audio File' : 'Import Audio'}</span>
             </button>
             <input
               type="file"
