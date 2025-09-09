@@ -1,11 +1,13 @@
 
 import React, { useMemo } from 'react';
 import { Project, CustomAssetType } from '../types';
+import { TrashIcon } from './icons';
 
 interface ProjectCardProps {
   project: Project;
   assetTypes: CustomAssetType[];
   onSelect: () => void;
+  onDelete: () => void;
 }
 
 const WaveformVisual: React.FC<{ markers: Project['markers'], assetTypes: CustomAssetType[] }> = ({ markers, assetTypes }) => {
@@ -36,13 +38,25 @@ const WaveformVisual: React.FC<{ markers: Project['markers'], assetTypes: Custom
   );
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, assetTypes, onSelect }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, assetTypes, onSelect, onDelete }) => {
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete();
+  };
+
   return (
-    <div onClick={onSelect} className="cursor-pointer group">
+    <div onClick={onSelect} className="cursor-pointer group relative">
       <div className="aspect-video bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 group-hover:border-gray-400 transition-colors duration-300">
         <WaveformVisual markers={project.markers} assetTypes={assetTypes} />
       </div>
       <h3 className="text-md font-semibold mt-3 text-gray-800 truncate">{project.title}</h3>
+      <button 
+        onClick={handleDeleteClick} 
+        className="absolute top-2 right-2 p-2 bg-white/70 rounded-full text-gray-500 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100"
+        aria-label={`Delete project ${project.title}`}
+      >
+        <TrashIcon className="w-5 h-5" />
+      </button>
     </div>
   );
 };

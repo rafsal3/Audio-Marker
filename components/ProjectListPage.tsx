@@ -3,6 +3,7 @@ import React from 'react';
 import { Project, CustomAssetType } from '../types';
 import ProjectCard from './ProjectCard';
 import { ImportIcon, PlusIcon, SettingsIcon } from './icons';
+import { useDialog } from '../contexts/DialogProvider';
 
 interface ProjectListPageProps {
   projects: Project[];
@@ -10,9 +11,24 @@ interface ProjectListPageProps {
   onSelectProject: (projectId: string) => void;
   onCreateNewProject: () => void;
   onGoToSettings: () => void;
+  onDeleteProject: (projectId: string) => void;
 }
 
-const ProjectListPage: React.FC<ProjectListPageProps> = ({ projects, assetTypes, onSelectProject, onCreateNewProject, onGoToSettings }) => {
+const ProjectListPage: React.FC<ProjectListPageProps> = ({ projects, assetTypes, onSelectProject, onCreateNewProject, onGoToSettings, onDeleteProject }) => {
+  const dialog = useDialog();
+
+  const handleDelete = async (project: Project) => {
+    const confirmed = await dialog.warning({
+      title: `Delete '${project.title}'?`,
+      message: 'Are you sure you want to delete this project? This action cannot be undone.',
+      confirmText: 'Delete Project',
+      cancelText: 'Cancel'
+    });
+    if (confirmed) {
+      onDeleteProject(project.id);
+    }
+  };
+  
   return (
     <div className="p-8 lg:p-12 max-w-7xl mx-auto">
       <header className="flex justify-between items-center mb-10">
@@ -33,7 +49,9 @@ const ProjectListPage: React.FC<ProjectListPageProps> = ({ projects, assetTypes,
             key={project.id} 
             project={project} 
             assetTypes={assetTypes}
-            onSelect={() => onSelectProject(project.id)} />
+            onSelect={() => onSelectProject(project.id)} 
+            onDelete={() => handleDelete(project)}
+          />
         ))}
         <div 
           className="flex flex-col items-center justify-center aspect-video bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl text-gray-500 hover:bg-gray-100 hover:border-gray-400 cursor-pointer transition-colors"

@@ -76,6 +76,10 @@ const App: React.FC = () => {
     setView('editor');
   };
 
+  const handleDeleteProject = (projectId: string) => {
+    setProjects(prevProjects => prevProjects.filter(p => p.id !== projectId));
+  };
+
   const handleUpdateProject = useCallback((updatedProject: Project) => {
     setProjects(prevProjects => 
       prevProjects.map(p => p.id === updatedProject.id ? updatedProject : p)
@@ -122,6 +126,7 @@ const App: React.FC = () => {
             onSelectProject={handleSelectProject}
             onCreateNewProject={handleCreateNewProject}
             onGoToSettings={handleGoToSettings}
+            onDeleteProject={handleDeleteProject}
           />
         );
     }
