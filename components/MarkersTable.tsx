@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Marker, AssetStatus, CustomAssetType } from '../types';
 import { ASSET_STATUS_COLORS } from '../constants';
@@ -29,7 +30,7 @@ const CustomSelect: React.FC<{
             <select
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className={`w-full appearance-none text-white font-semibold py-2 pl-3 pr-8 rounded-md text-sm cursor-pointer border-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50 ${selectedOption.color}`}
+                className={`w-full appearance-none text-white font-semibold py-2 pl-3 pr-8 rounded-md text-sm cursor-pointer border-none focus:outline-none ${selectedOption.color}`}
                 disabled={options.length === 0}
             >
                 {options.map(option => (
@@ -132,7 +133,7 @@ const MarkersTable: React.FC<MarkersTableProps> = ({ markers, assetTypes, onUpda
                 id="type-filter"
                 value={filter.type}
                 onChange={e => setFilter(prev => ({...prev, type: e.target.value}))}
-                className="text-sm p-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="text-sm p-1 border-gray-300 rounded-md focus:outline-none"
             >
                 <option value="all">All Types</option>
                 {assetTypes.map(t => <option key={t.id} value={t.name}>{t.name}</option>)}
@@ -144,7 +145,7 @@ const MarkersTable: React.FC<MarkersTableProps> = ({ markers, assetTypes, onUpda
                 id="status-filter"
                 value={filter.status}
                 onChange={e => setFilter(prev => ({...prev, status: e.target.value as AssetStatus | 'all'}))}
-                className="text-sm p-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="text-sm p-1 border-gray-300 rounded-md focus:outline-none"
             >
                 <option value="all">All Statuses</option>
                 {Object.values(AssetStatus).map(s => <option key={s} value={s}>{s}</option>)}
@@ -184,7 +185,7 @@ const MarkersTable: React.FC<MarkersTableProps> = ({ markers, assetTypes, onUpda
                 type="text"
                 value={marker.context}
                 onChange={e => handleMarkerChange(marker.id, 'context', e.target.value)}
-                className="w-full bg-gray-100 border-transparent rounded-md px-3 py-2 text-sm focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full bg-gray-100 border-transparent rounded-md px-3 py-2 text-sm focus:outline-none focus:bg-white"
               />
               
               <CustomSelect

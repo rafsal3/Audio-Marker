@@ -1,6 +1,7 @@
+
 import React, { useState, useRef } from 'react';
 import { CustomAssetType } from '../types';
-import { BackIcon, PlusIcon, TrashIcon, ImportIcon, ExportIcon } from './icons';
+import { BackIcon, PlusIcon, TrashIcon, ImportIcon, ExportIcon, CheckIcon } from './icons';
 import { useDialog } from '../contexts/DialogProvider';
 
 interface SettingsPageProps {
@@ -130,7 +131,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ assetTypes, onUpdateAssetTy
                   type="text"
                   value={type.name}
                   onChange={(e) => handleUpdateType(type.id, 'name', e.target.value)}
-                  className="flex-grow bg-white border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500"
+                  className="flex-grow bg-white border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:outline-none"
                 />
                 <button onClick={() => handleDeleteType(type.id)} className="p-2 text-gray-500 rounded-md hover:bg-red-100 hover:text-red-600"><TrashIcon className="w-5 h-5"/></button>
               </div>
@@ -148,7 +149,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ assetTypes, onUpdateAssetTy
                 placeholder="New asset type name..."
                 value={newTypeName}
                 onChange={e => setNewTypeName(e.target.value)}
-                className="flex-grow bg-white border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                className="flex-grow bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
               />
               <button onClick={handleAddType} className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                 <PlusIcon className="w-5 h-5" /> Add
@@ -161,9 +162,15 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ assetTypes, onUpdateAssetTy
                   <button
                     key={color}
                     onClick={() => setNewTypeColor(color)}
-                    className={`w-full aspect-square rounded-md ${color} ${newTypeColor === color ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
+                    className={`relative w-full aspect-square rounded-md ${color}`}
                     aria-label={`Select color ${color}`}
-                  />
+                  >
+                    {newTypeColor === color && (
+                        <span className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-md">
+                            <CheckIcon className="w-6 h-6 text-white" />
+                        </span>
+                    )}
+                  </button>
                 ))}
               </div>
             </div>

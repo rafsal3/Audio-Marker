@@ -188,7 +188,7 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
               onChange={handleTitleChange}
               onBlur={handleTitleBlur}
               onKeyDown={handleTitleKeyDown}
-              className="text-xl font-bold text-center bg-gray-100 rounded-md px-2 -my-1"
+              className="text-xl font-bold text-center bg-gray-100 rounded-md px-2 -my-1 focus:outline-none"
               autoFocus
             />
           ) : (

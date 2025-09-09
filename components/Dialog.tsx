@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { InfoIcon, QuestionIcon, WarningIcon, XIcon } from './icons';
 
@@ -69,17 +70,17 @@ const Dialog: React.FC<DialogProps> = ({
                 {isConfirm && (
                     <button
                         onClick={onCancel}
-                        className="w-full px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                        className="w-full px-6 py-3 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-all focus:outline-none"
                     >
                         {cancelText}
                     </button>
                 )}
                 <button
                     onClick={onConfirm}
-                    className={`w-full px-6 py-3 text-sm font-semibold text-white rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                    className={`w-full px-6 py-3 text-sm font-semibold text-white rounded-lg transition-all focus:outline-none ${
                         type === 'warning'
-                        ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500'
-                        : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+                        ? 'bg-red-600 hover:bg-red-700'
+                        : 'bg-blue-600 hover:bg-blue-700'
                     }`}
                 >
                     {confirmText}
