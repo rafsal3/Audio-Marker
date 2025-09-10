@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { Project, CustomAssetType } from '../types';
+import { Project, CustomAssetType, AssetStatus } from '../types';
 import { TrashIcon } from './icons';
 
 interface ProjectCardProps {
@@ -44,11 +44,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, assetTypes, onSelect
     onDelete();
   };
 
+  const allMarkersDone = useMemo(() => {
+    if (project.markers.length === 0) {
+      return false;
+    }
+    return project.markers.every(marker => marker.status === AssetStatus.Done);
+  }, [project.markers]);
+
   return (
     <div onClick={onSelect} className="cursor-pointer group relative">
       <div className="aspect-video bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 group-hover:border-gray-400 transition-colors duration-300">
         <WaveformVisual markers={project.markers} assetTypes={assetTypes} />
       </div>
+      
+      {allMarkersDone && (
+        <div 
+          className="absolute top-3 left-3 w-3 h-3 bg-green-500 rounded-full border-2 border-white shadow-md"
+          title="All markers completed"
+        ></div>
+      )}
+
       <h3 className="text-md font-semibold mt-3 text-gray-800 truncate">{project.title}</h3>
       <button 
         onClick={handleDeleteClick} 
