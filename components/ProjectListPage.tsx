@@ -30,20 +30,20 @@ const ProjectListPage: React.FC<ProjectListPageProps> = ({ projects, assetTypes,
   };
   
   return (
-    <div className="p-8 lg:p-12 max-w-7xl mx-auto">
-      <header className="flex justify-between items-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900">All Projects</h1>
-        <div className="flex items-center gap-4">
+    <div className="p-4 sm:p-8 lg:p-12 max-w-7xl mx-auto">
+      <header className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 sm:mb-10">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">All Projects</h1>
+        <div className="flex items-center gap-2 sm:gap-4 self-end sm:self-auto">
           <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
             <ImportIcon className="w-4 h-4" />
-            Import
+            <span className="hidden sm:inline">Import</span>
           </button>
           <button onClick={onGoToSettings} className="p-2 text-gray-600 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 hover:text-gray-900 transition-colors" aria-label="Settings">
             <SettingsIcon className="w-5 h-5" />
           </button>
         </div>
       </header>
-      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
         {projects.map(project => (
           <ProjectCard 
             key={project.id} 

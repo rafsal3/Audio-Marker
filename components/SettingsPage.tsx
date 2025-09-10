@@ -106,16 +106,20 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ assetTypes, onUpdateAssetTy
   };
 
   return (
-    <div className="p-8 lg:p-12 max-w-4xl mx-auto">
-      <header className="flex justify-between items-center mb-10">
-        <button onClick={onBack} className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900">
+    <div className="p-4 sm:p-8 lg:p-12 max-w-4xl mx-auto">
+      <header className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-10 gap-4">
+        <button onClick={onBack} className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 self-start sm:self-auto">
           <BackIcon />
-          Back to Projects
+          <span className="hidden sm:inline">Back to Projects</span>
         </button>
-        <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-        <div className="flex items-center gap-2">
-            <button onClick={handleImportClick} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors"><ImportIcon className="w-4 h-4" /> Import</button>
-            <button onClick={handleExportSettings} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors"><ExportIcon className="w-4 h-4"/> Export</button>
+        <h1 className="text-3xl font-bold text-gray-900 order-first sm:order-none self-start sm:self-auto">Settings</h1>
+        <div className="flex items-center gap-2 self-end sm:self-auto">
+            <button onClick={handleImportClick} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
+                <ImportIcon className="w-4 h-4" /> <span className="hidden sm:inline">Import</span>
+            </button>
+            <button onClick={handleExportSettings} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
+                <ExportIcon className="w-4 h-4"/> <span className="hidden sm:inline">Export</span>
+            </button>
             <input type="file" ref={importFileRef} onChange={handleImportFile} className="hidden" accept=".json" />
         </div>
       </header>
@@ -143,21 +147,21 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ assetTypes, onUpdateAssetTy
         <section>
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Add New Type</h2>
           <div className="p-4 bg-gray-50 rounded-lg border flex flex-col gap-4">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <input
                 type="text"
                 placeholder="New asset type name..."
                 value={newTypeName}
                 onChange={e => setNewTypeName(e.target.value)}
-                className="flex-grow bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
+                className="w-full sm:flex-grow bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
               />
-              <button onClick={handleAddType} className="flex items-center gap-2 px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+              <button onClick={handleAddType} className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                 <PlusIcon className="w-5 h-5" /> Add
               </button>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Color</label>
-              <div className="grid grid-cols-11 gap-2">
+              <div className="grid grid-cols-7 sm:grid-cols-11 gap-2">
                 {TAILWIND_COLORS.map(color => (
                   <button
                     key={color}

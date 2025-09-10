@@ -66,7 +66,7 @@ const Dialog: React.FC<DialogProps> = ({
                 {message}
             </p>
 
-            <div className="flex justify-center items-center gap-4 w-full">
+            <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-3 w-full">
                 {isConfirm && (
                     <button
                         onClick={onCancel}

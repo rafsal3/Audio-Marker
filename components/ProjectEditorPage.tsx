@@ -178,9 +178,9 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
       <header className="flex-shrink-0 flex justify-between items-center p-4 lg:p-6 border-b border-gray-200">
         <button onClick={onBack} className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900">
           <BackIcon />
-          Back
+          <span className="hidden sm:inline">Back</span>
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-1 justify-center px-2">
           {isEditingTitle ? (
             <input
               type="text"
@@ -188,24 +188,24 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
               onChange={handleTitleChange}
               onBlur={handleTitleBlur}
               onKeyDown={handleTitleKeyDown}
-              className="text-xl font-bold text-center bg-gray-100 rounded-md px-2 -my-1 focus:outline-none"
+              className="text-lg sm:text-xl font-bold text-center bg-gray-100 rounded-md px-2 -my-1 focus:outline-none w-full max-w-xs"
               autoFocus
             />
           ) : (
-            <h1 className="text-xl font-bold">{project.title}</h1>
+            <h1 className="text-lg sm:text-xl font-bold text-center truncate">{project.title}</h1>
           )}
-          <button onClick={() => setIsEditingTitle(!isEditingTitle)} className="text-gray-500 hover:text-gray-800">
+          <button onClick={() => setIsEditingTitle(!isEditingTitle)} className="text-gray-500 hover:text-gray-800 flex-shrink-0">
             <EditIcon />
           </button>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={handleImportMarkersClick} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
+          <button onClick={handleImportMarkersClick} className="flex items-center gap-2 px-3 sm:px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
             <ImportIcon className="w-4 h-4" />
-            Import
+            <span className="hidden sm:inline">Import</span>
           </button>
-          <button onClick={handleExportMarkers} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
+          <button onClick={handleExportMarkers} className="flex items-center gap-2 px-3 sm:px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
             <ExportIcon className="w-4 h-4" />
-            Export
+            <span className="hidden sm:inline">Export</span>
           </button>
           <input
             type="file"
@@ -216,7 +216,7 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
           />
         </div>
       </header>
-      <main className="flex-grow p-4 lg:p-8 flex flex-col items-center justify-center">
+      <main className="flex-grow p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center">
         {!project.audioUrl ? (
           <div className="w-full max-w-2xl">
             {needsAudioRelink && (

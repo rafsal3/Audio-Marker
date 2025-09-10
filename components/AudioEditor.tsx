@@ -193,34 +193,35 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ project, assetTypes, onProjec
       </div>
       
       <div className="flex-grow flex flex-col gap-4 min-h-0">
-         <div className="flex-shrink-0 flex items-center gap-4 p-2 bg-gray-100 rounded-lg">
+         <div className="flex-shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 p-2 bg-gray-100 rounded-lg">
             <input
                 type="text"
                 placeholder="Context... (optional)"
                 value={newMarkerContext}
                 onChange={(e) => setNewMarkerContext(e.target.value)}
-                className="flex-grow bg-white border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none"
+                className="w-full sm:flex-grow bg-white border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none"
             />
             <select
                 value={newMarkerType}
                 onChange={(e) => setNewMarkerType(e.target.value)}
-                className="bg-white border border-gray-200 rounded-md px-3 py-2 text-sm font-semibold text-gray-700 focus:outline-none"
+                className="w-full sm:w-auto bg-white border border-gray-200 rounded-md px-3 py-2 text-sm font-semibold text-gray-700 focus:outline-none"
                 disabled={assetTypes.length === 0}
             >
                 {assetTypes.map(type => (
                     <option key={type.id} value={type.name}>{type.name}</option>
                 ))}
             </select>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-end sm:self-auto">
                 <button 
                     onClick={addMarker}
                     className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400"
                     disabled={assetTypes.length === 0}
                 >
                     <PlusIcon className="w-4 h-4" />
-                    Add Marker
+                    <span className="hidden sm:inline">Add Marker</span>
+                    <span className="sm:hidden">Add</span>
                 </button>
-                <span className="text-xs text-gray-500 font-mono pr-2">or press M</span>
+                <span className="text-xs text-gray-500 font-mono pr-2 hidden sm:inline">or press M</span>
             </div>
         </div>
         <div className="relative flex-1">
