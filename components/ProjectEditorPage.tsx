@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useCallback } from 'react';
 import { Project, Marker, AssetStatus, CustomAssetType } from '../types';
 import { BackIcon, EditIcon, ExportIcon, AudioWaveIcon, ImportIcon } from './icons';
@@ -192,11 +191,17 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
               autoFocus
             />
           ) : (
-            <h1 className="text-lg sm:text-xl font-bold text-center truncate">{project.title}</h1>
+            <div
+              onClick={() => setIsEditingTitle(true)}
+              className="group flex items-center gap-2 cursor-pointer rounded-md px-2 py-1 -my-1 hover:bg-gray-100 transition-colors"
+              title="Click to edit project title"
+            >
+              <h1 className="text-lg sm:text-xl font-bold text-center truncate">
+                {project.title}
+              </h1>
+              <EditIcon className="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" />
+            </div>
           )}
-          <button onClick={() => setIsEditingTitle(!isEditingTitle)} className="text-gray-500 hover:text-gray-800 flex-shrink-0">
-            <EditIcon />
-          </button>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={handleImportMarkersClick} className="flex items-center gap-2 px-3 sm:px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors">
