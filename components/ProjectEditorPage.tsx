@@ -243,34 +243,29 @@ const ProjectEditorPage: React.FC<ProjectEditorPageProps> = ({ project: initialP
           <BackIcon />
           <span className="hidden sm:inline">Back</span>
         </button>
-        <div className="flex items-center gap-2 flex-1 justify-center px-2">
-          <div className="hidden md:flex items-center gap-2">
-            {isEditingTitle ? (
-              <input
-                type="text"
-                value={title}
-                onChange={handleTitleChange}
-                onBlur={handleTitleBlur}
-                onKeyDown={handleTitleKeyDown}
-                className="text-lg sm:text-xl font-bold text-center bg-gray-100 rounded-md px-2 -my-1 focus:outline-none w-full max-w-xs"
-                autoFocus
-              />
-            ) : (
-              <div
-                onClick={() => setIsEditingTitle(true)}
-                className="group flex items-center gap-2 cursor-pointer rounded-md px-2 py-1 -my-1 hover:bg-gray-100 transition-colors"
-                title="Click to edit project title"
-              >
-                <h1 className="text-lg sm:text-xl font-bold text-center truncate">
-                  {project.title}
-                </h1>
-                <EditIcon className="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors" />
-              </div>
-            )}
-          </div>
-          <h1 className="md:hidden text-lg font-bold text-center truncate">
-            {project.title}
-          </h1>
+        <div className="flex items-center gap-2 flex-1 justify-center px-2 min-w-0">
+          {isEditingTitle ? (
+            <input
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+              onBlur={handleTitleBlur}
+              onKeyDown={handleTitleKeyDown}
+              className="text-lg sm:text-xl font-bold text-center bg-gray-100 rounded-md px-2 -my-1 focus:outline-none w-full"
+              autoFocus
+            />
+          ) : (
+            <div
+              onClick={() => setIsEditingTitle(true)}
+              className="group flex items-center gap-2 cursor-pointer rounded-md px-2 py-1 -my-1 hover:bg-gray-100 transition-colors min-w-0"
+              title="Click to edit project title"
+            >
+              <h1 className="text-lg sm:text-xl font-bold text-center truncate">
+                {project.title}
+              </h1>
+              <EditIcon className="w-4 h-4 text-gray-400 group-hover:text-gray-700 transition-colors flex-shrink-0" />
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <div className="hidden md:flex items-center gap-2">
